@@ -1,2 +1,0 @@
-# ChatbotFTT
-Test
