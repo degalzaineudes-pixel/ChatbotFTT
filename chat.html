@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chat</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { width: 100%; height: 100%; background: transparent; overflow: hidden; }
+
+    [id*="cxone"], [class*="cxone"], [class*="cx-widget"],
+    [id*="chat-widget"], [id*="chatWidget"] {
+      position: fixed !important;
+      inset: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      max-width: 100vw !important;
+      max-height: 100vh !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+    }
+  </style>
+</head>
+<body>
+
+<script>
+  (function(n,u){
+    window.CXoneDfo=n,
+    window[n]=window[n]||function(){(window[n].q=window[n].q||[]).push(arguments)},window[n].u=u;
+    var e=document.createElement("script");
+    e.type="module";
+    e.src=u+"?"+Math.round(Date.now()/1e3/3600);
+    document.head.appendChild(e);
+  })('cxone','https://web-modules-de-eu1.niceincontact.com/loader/1/loader.js');
+
+  // 1. Init général
+  cxone('init', '1326');
+
+  // 2. Pré-remplir le nom AVANT init chat
+  cxone('chat', 'setCustomerName', 'Visiteur');
+
+  // 3. Init chat avec options pour désactiver le formulaire de démarrage
+  cxone('chat', 'init', 1326, 'chat_a0479705-9775-4047-8472-ffc2dc2f86c2', {
+    customFields: {
+      firstName: 'Visiteur'
+    },
+    hidePrechatForm: true,
+    skipPrechatForm: true,
+    prechatForm: false,
+    customerName: 'Visiteur'
+  });
+
+  // 4. Auto-clic sur le bouton d'ouverture
+  window.addEventListener('load', function() {
+    function tryOpen() {
+      const btn = document.querySelector(
+        '[class*="cx-btn-default"], [class*="cx-button"], [class*="cx-fab"], ' +
+        '[aria-label*="chat"], [aria-label*="Chat"], ' +
+        'button[class*="widget"], button[class*="chat"], ' +
+        '[class*="cx-widget__minimized"]'
+      );
+      if (btn) {
+        btn.click();
+      } else {
+        setTimeout(tryOpen, 400);
+      }
+    }
+    setTimeout(tryOpen, 800);
+  });
+</script>
+
+</body>
+</html>
